@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { MenuIcon } from 'lucide-react'
 import {
   RegisterLink,
@@ -7,6 +7,7 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Link from 'next/link';
 
 const Usernav = async () => {
   const { getUser } = getKindeServerSession();
@@ -26,9 +27,35 @@ const Usernav = async () => {
 
       <DropdownMenuContent align="end" className="w-[200px]">
         {user ? (
+          <>
+          <DropdownMenuItem>
+           <form>
+            <button type='submit' className='w-full text-start'>
+              Airbnb your Home
+            </button>
+           </form>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+           <Link href='/my-homes' className='w-full'>
+           My Listings
+           </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+           <Link href='/favourites' className='w-full'>
+           My Favourites
+           </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+           <Link href='/reservation' className='w-full'>
+           My Reservations
+           </Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator/>
           <DropdownMenuItem>
             <LogoutLink className="w-full">Log out</LogoutLink>
           </DropdownMenuItem>
+          
+          </>
         ) : (
           <>
           <DropdownMenuItem>
