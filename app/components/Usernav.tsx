@@ -8,10 +8,15 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Link from 'next/link';
+import { createAirbnbHome } from '../actions';
 
 const Usernav = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
+  const createUserWithId = createAirbnbHome.bind(null, {
+    userId: user?.id as string
+  })
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -29,7 +34,7 @@ const Usernav = async () => {
         {user ? (
           <>
           <DropdownMenuItem>
-           <form>
+           <form action={createUserWithId}>
             <button type='submit' className='w-full text-start'>
               Airbnb your Home
             </button>

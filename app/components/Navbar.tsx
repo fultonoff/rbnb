@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav className="w-full border-b">
       <div className="flex items-center justify-between container mx-auto lg:px-10 p-5">
-        <Link href="">
+        <Link href="/">
           <Image
             src={desktopLogo}
             alt="desktop logo"
