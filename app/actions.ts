@@ -46,3 +46,12 @@ export async function createCategoryPage(formData: FormData){
 
     return redirect(`/create/${homeId}/description`)
 }
+
+export async function createDescription(formData: FormData){
+
+    const title = formData.get('title') as string
+    const description = formData.get('description') as string
+    const price = formData.get('price')
+    const imageFile = formData.get('image') as File
+
+}

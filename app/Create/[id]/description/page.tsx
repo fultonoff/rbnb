@@ -1,3 +1,5 @@
+import Counter from "@/app/components/Counter";
+import CreationBottomBar from "@/app/components/CreationBottomBar";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,10 +59,27 @@ const DescriptionPage = () => {
                   <h3 className="underline font-medium">Guests</h3>
                   <p className="text-muted-foreground text-sm">How many guest do you want</p>
                 </div>
+                <Counter/>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <h3 className="underline font-medium">Rooms</h3>
+                  <p className="text-muted-foreground text-sm">How many Rooms do you have</p>
+                </div>
+                <Counter/>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <h3 className="underline font-medium">Bathrooms</h3>
+                  <p className="text-muted-foreground text-sm">How many Bathrooms do you have</p>
+                </div>
+                <Counter/>
               </div>
             </CardHeader>
           </Card>
         </div>
+
+        <CreationBottomBar/>
       </form>
     </>
   );
