@@ -57,29 +57,35 @@ const DescriptionPage = () => {
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
                   <h3 className="underline font-medium">Guests</h3>
-                  <p className="text-muted-foreground text-sm">How many guest do you want</p>
+                  <p className="text-muted-foreground text-sm">
+                    How many guest do you want
+                  </p>
                 </div>
-                <Counter/>
+                <Counter />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
                   <h3 className="underline font-medium">Rooms</h3>
-                  <p className="text-muted-foreground text-sm">How many Rooms do you have</p>
+                  <p className="text-muted-foreground text-sm">
+                    How many Rooms do you have
+                  </p>
                 </div>
-                <Counter/>
+                <Counter />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
                   <h3 className="underline font-medium">Bathrooms</h3>
-                  <p className="text-muted-foreground text-sm">How many Bathrooms do you have</p>
+                  <p className="text-muted-foreground text-sm">
+                    How many Bathrooms do you have
+                  </p>
                 </div>
-                <Counter/>
+                <Counter />
               </div>
             </CardHeader>
           </Card>
         </div>
 
-        <CreationBottomBar/>
+        <CreationBottomBar />
       </form>
     </>
   );
