@@ -1,14 +1,19 @@
 
+import { Suspense } from "react";
 import ListingCard from "./components/ListingCard";
 import MapFilterItems from "./components/MapFilterItems";
 import prisma from "@/lib/db";
+import SkeletonCard from "./components/SkeletonCard";
 
-async function getData() {
+async function getData({searchParams}:{searchParams?:{
+  filter? : string
+}}) {
   const data = await prisma.home.findMany({
     where: {
       addedCategoty: true,
       addedLocation: true,
       addedDescription: true,
+      categoryName: searchParams?.filter ?? undefined,
     },
     select: {
       photo: true,
@@ -22,12 +27,31 @@ async function getData() {
   return data;
 }
 
-export default async function Home() {
-  const data = await getData();
+export default function Home({searchParams}:{searchParams?:{
+  filter? : string
+}}) {
   return (
     <div className="container mx-auto px-5 lg:px-10">
       <MapFilterItems />
 
+      <Suspense key={searchParams?.filter} fallback={< SkeletonLoading/>}>
+
+      <ShowItems searchParams={searchParams}/>
+      </Suspense>
+
+    </div>
+  );
+}
+
+
+async function ShowItems({searchParams}:{searchParams?:{
+  filter? : string
+}}){
+  const data = await getData({searchParams: searchParams});
+
+  return(
+    <div className="container mx-auto px-5 lg:px-10">
+     
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 mt-8">
         {data.map((item) => {
           return (
@@ -42,5 +66,18 @@ export default async function Home() {
         })}
       </div>
     </div>
-  );
+  )
+}
+
+function SkeletonLoading(){
+  return(
+    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 mt-8">
+      <SkeletonCard/>
+      <SkeletonCard/>
+      <SkeletonCard/>
+      <SkeletonCard/>
+      <SkeletonCard/>
+      <SkeletonCard/>
+    </div>
+  )
 }
