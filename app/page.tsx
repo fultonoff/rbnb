@@ -4,6 +4,7 @@ import ListingCard from "./components/ListingCard";
 import MapFilterItems from "./components/MapFilterItems";
 import prisma from "@/lib/db";
 import SkeletonCard from "./components/SkeletonCard";
+import NoItem from "./components/NoItem";
 
 async function getData({searchParams}:{searchParams?:{
   filter? : string
@@ -48,6 +49,8 @@ async function ShowItems({searchParams}:{searchParams?:{
   filter? : string
 }}){
   const data = await getData({searchParams: searchParams});
+
+  if(data.length === 0) return <NoItem/>
 
   return(
     <div className="container mx-auto px-5 lg:px-10">
