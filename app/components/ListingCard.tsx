@@ -4,6 +4,8 @@ import Link from "next/link";
 import React from "react";
 import { useCountries } from "../lib/getCountries";
 import CountryFlag from './CountryFlag'
+import { Heart } from "lucide-react";
+import { AddToFavoriteButton } from "./SubmitButton";
 
 
 
@@ -12,6 +14,7 @@ interface iAppProps {
   description: string;
   location: string;
   price: number;
+  userId: string | undefined;
 }
 
 const ListingCard = ({
@@ -19,13 +22,12 @@ const ListingCard = ({
   imagePath,
   location,
   price,
+  userId
 }: iAppProps) => {
 
     const {getCountryByValue}= useCountries()
     const country = getCountryByValue(location)
-    console.log(country);
     const flag = String(country?.flag)
-    console.log(flag);
   return (
     <div className="flex flex-col">
       <div className="relative h-72">
@@ -35,6 +37,13 @@ const ListingCard = ({
           fill
           className="rounded-lg object-cover mb-3"
         />
+
+        {userId && 
+        <div className='z-10 absolute top-2 right-2'>
+          <AddToFavoriteButton/>
+
+        </div>
+        }
       </div>
 
       <Link href={'/'} className="mt-2">
