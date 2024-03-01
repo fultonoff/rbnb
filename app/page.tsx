@@ -59,7 +59,7 @@ async function ShowItems({searchParams}:{searchParams?:{
   const user = await getUser()
   const data = await getData({searchParams: searchParams,userId: user?.id});
 
-  if(data.length === 0) return <NoItem/>
+  if(data.length === 0) return <NoItem title="No Listings Found" description="Please  try another search or create your own Listings"/>
 
   return(
     <div className="container mx-auto px-5 lg:px-10">
