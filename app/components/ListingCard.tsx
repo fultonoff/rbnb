@@ -3,11 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useCountries } from "../lib/getCountries";
-import CountryFlag from './CountryFlag'
-import { Heart } from "lucide-react";
-import { AddToFavoriteButton } from "./SubmitButton";
-
-
+import CountryFlag from "./CountryFlag";
+import { AddToFavoriteButton, DeleteFormFavoriteButton } from "./SubmitButton";
+import { addToFavorite, deleteFromFavorite } from "../actions";
 
 interface iAppProps {
   imagePath: string;
@@ -15,6 +13,11 @@ interface iAppProps {
   location: string;
   price: number;
   userId: string | undefined;
+  isInFavoriteList: boolean;
+  favoriteId: string;
+  homeId: string;
+  pathName: string;
+
 }
 
 const ListingCard = ({
@@ -22,12 +25,15 @@ const ListingCard = ({
   imagePath,
   location,
   price,
-  userId
+  userId,
+  favoriteId,
+  isInFavoriteList,
+  homeId,
+  pathName
 }: iAppProps) => {
-
-    const {getCountryByValue}= useCountries()
-    const country = getCountryByValue(location)
-    const flag = String(country?.flag)
+  const { getCountryByValue } = useCountries();
+  const country = getCountryByValue(location);
+  const flag = String(country?.flag);
   return (
     <div className="flex flex-col">
       <div className="relative h-72">
@@ -38,21 +44,39 @@ const ListingCard = ({
           className="rounded-lg object-cover mb-3"
         />
 
-        {userId && 
-        <div className='z-10 absolute top-2 right-2'>
-          <AddToFavoriteButton/>
-
-        </div>
-        }
+        {userId && (
+          <div className="z-10 absolute top-2 right-2">
+            {isInFavoriteList ? (
+              <form action={deleteFromFavorite}>
+                <input type="hidden" name="favoriteId" value={favoriteId} />
+                <input type="hidden" name="userId" value={userId} />
+                <input type="hidden" name="pathName" value={pathName} />
+                <DeleteFormFavoriteButton />
+              </form>
+            ) : (
+              <form action={addToFavorite}>
+                <input type="hidden" name="homeId" value={homeId} />
+                <input type="hidden" name="userId" value={userId} />
+                <input type="hidden" name="pathName" value={pathName} />
+                <AddToFavoriteButton />
+              </form>
+            )}
+          </div>
+        )}
       </div>
 
-      <Link href={'/'} className="mt-2">
-        <h3 className='flex items-center gap-1 text-base  font-medium'><CountryFlag country={`${country?.value}`}/> {country?.label} / {country?.region}</h3>
-        <p className="text-muted-foreground text-sm line-clamp-2">{description}</p>
-        <p className='pt-2 text-muted-foreground'> <span className="font-medium text-black">${price}</span> Night</p>
-        
-    
-        
+      <Link href={"/"} className="mt-2">
+        <h3 className="flex items-center gap-1 text-base  font-medium">
+          <CountryFlag country={`${country?.value}`} /> {country?.label} /{" "}
+          {country?.region}
+        </h3>
+        <p className="text-muted-foreground text-sm line-clamp-2">
+          {description}
+        </p>
+        <p className="pt-2 text-muted-foreground">
+          {" "}
+          <span className="font-medium text-black">${price}</span> Night
+        </p>
       </Link>
     </div>
   );
