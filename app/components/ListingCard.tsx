@@ -65,7 +65,7 @@ const ListingCard = ({
         )}
       </div>
 
-      <Link href={"/"} className="mt-2">
+      <Link href={`home/${homeId}`} className="mt-2">
         <h3 className="flex items-center gap-1 text-base  font-medium">
           <CountryFlag country={`${country?.value}`} /> {country?.label} /{" "}
           {country?.region}
