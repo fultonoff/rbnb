@@ -1,6 +1,6 @@
 import SkeletonCard from "../components/SkeletonCard";
 
-const FavoriteLoading = () => {
+const ReservationLoading = () => {
   return (
     <section className="container mx-auto px-5 lg:px-10 mt-10">
       <h2 className="text-3xl font-semibold tracking-tight">Your Favoties</h2>
@@ -18,4 +18,4 @@ const FavoriteLoading = () => {
   );
 };
 
-export default FavoriteLoading;
+export default ReservationLoading;

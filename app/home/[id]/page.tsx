@@ -7,6 +7,13 @@ import { Separator } from "@/components/ui/separator";
 import CategoryShoCase from "@/app/components/CategoryShoCase";
 import HomeMap from "@/app/components/HomeMap";
 
+import { SelectCalender } from "@/app/components/SelectCalendar";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { createReservation } from "@/app/actions";
+import { ReservationSubmitButton } from "@/app/components/SubmitButton";
+
 async function getData(homeId: string) {
   const data = await prisma.home.findUnique({
     where: {
@@ -22,6 +29,11 @@ async function getData(homeId: string) {
       categoryName: true,
       description: true,
       country: true,
+      Reservation:{
+        where: {
+          homeId: homeId,
+        }
+      },
       User: {
         select: {
           profileImage: true,
@@ -38,6 +50,9 @@ const HomeRoute = async ({ params }: { params: { id: string } }) => {
 
   const { getCountryByValue } = useCountries();
   const country = getCountryByValue(data?.country as string);
+
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
   return (
     <section
       className="
@@ -85,6 +100,20 @@ const HomeRoute = async ({ params }: { params: { id: string } }) => {
 
           <HomeMap locationValue={country?.value as string} />
         </div>
+        <form action={createReservation}>
+          <input type="hidden" name="homeId" value={params.id} />
+          <input type="hidden" name="userId" value={user?.id} />
+
+          <SelectCalender reservation={data?.Reservation}/>
+
+          {user?.id ? (
+            <ReservationSubmitButton/>
+          ) : (
+            <Button className="w-full" asChild>
+              <Link href='/api/auth/login'>Make a reservation</Link>
+            </Button>
+          )}
+        </form>
       </div>
     </section>
   );
