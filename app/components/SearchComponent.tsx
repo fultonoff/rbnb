@@ -55,6 +55,7 @@ const SearchModelComponent = () => {
 
       <DialogContent className="sm:max-w-[425px]">
         <form className="flex flex-col gap-4">
+            <input type="hidden" name="country" value={locationValue}/>
           {step === 1 ? (
             <>
               <DialogHeader>
