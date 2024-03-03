@@ -4,6 +4,7 @@ import React from 'react'
 import desktopLogo from '../../public/airbnb-desktop.png'
 import mobilLogo from '../../public/airbnb-mobile.webp'
 import Usernav from './Usernav'
+import SearchModelComponent from './SearchComponent'
 
 const Navbar = () => {
   return (
@@ -21,9 +22,8 @@ const Navbar = () => {
             className="w-12 lg:hidden"
           />
         </Link>
-        <div className="rounded-full border px-5 py-2">
-          <h1>Hello world</h1>
-        </div>
+        
+        <SearchModelComponent/>
 
         <Usernav />
       </div>
